@@ -6,14 +6,14 @@
 /*   By: vpacheco <vpacheco@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:34:33 by vpacheco          #+#    #+#             */
-/*   Updated: 2023/03/21 17:09:09 by vpacheco         ###   ########.fr       */
+/*   Updated: 2023/03/21 18:13:06 by vpacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include "../ft_printf/includes/ft_printf.h"
+# include "ft_printf.h"
 # include <stdlib.h>
 # include <limits.h>
 # include <sys/time.h>

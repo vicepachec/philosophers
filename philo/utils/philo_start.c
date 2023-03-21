@@ -6,11 +6,11 @@
 /*   By: vpacheco <vpacheco@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:10:24 by vpacheco          #+#    #+#             */
-/*   Updated: 2023/03/21 17:11:36 by vpacheco         ###   ########.fr       */
+/*   Updated: 2023/03/21 18:12:23 by vpacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "philosophers.h"
 
 void	philo_start()
 {
