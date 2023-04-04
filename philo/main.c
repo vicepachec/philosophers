@@ -6,7 +6,7 @@
 /*   By: vpacheco <vpacheco@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:01:22 by vpacheco          #+#    #+#             */
-/*   Updated: 2023/03/28 16:30:14 by vpacheco         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:56:11 by vpacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	main (int ac, char **av)
 	data.philo_sleep = ft_atoi (av[4]);
 	if (ac == 6)
 	{
-		data.times_eaten = ft_atoi (av[5]);
-		if (data.times_eaten <= 0)
+		data.must_eat = ft_atoi (av[5]);
+		if (data.must_eat <= 0)
 		{
 			printf("Error\n");
 			return(1);
