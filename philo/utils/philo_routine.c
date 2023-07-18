@@ -6,7 +6,7 @@
 /*   By: vpacheco <vpacheco@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 17:19:57 by vpacheco          #+#    #+#             */
-/*   Updated: 2023/04/04 18:21:08 by vpacheco         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:20:02 by vpacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int		philo_sleep(t_philo *philos)
 	
 	nap_time = get_time();
 	napping = 0;
-	if (check_death(philos))
-		return(1);
+	if (check_death())
+		return(0);
 	print_message(philos, "is sleeping");
 	usleep(100);
-	while (napping <= philos->data->philo_sleep)
+	while (napping <= data_call()->philo_sleep)
 		napping = get_time() - nap_time;
 	return (1);
 }
@@ -35,14 +35,42 @@ int		philo_eat(t_philo *philos)
 
 	eat_time = get_time();
 	eating = 0;
-	if (check_death(philos))
-		return(1);
+	if (check_death())
+		return(0);
 	usleep(100);
-	if (!is_dead(philos))
+	if (is_alive(philos))
 	{
 		print_message(philos, "is eating");
-		while (eating <= philos->data->philo_eat_time && !(is_dead(philos)))
+		while (eating <= data_call()->philo_eat_time && is_alive(philos))
 			eating = get_time() - eat_time;
 		philos->last_eaten = get_time();
+		put_forks(philos, philos->right_fork);
+		put_forks(philos, philos->left_fork);
+		philos->both_forks = 0;
+		philos->times_eaten++;
 	}
+	return(1);
+}
+
+void *philo_jobs(void *arg)
+{
+	t_philo *philos;
+	
+	philos = (t_philo *)arg;
+	philos->last_eaten = data_call()->start;
+	if (philos->philo_index % 2 == 0)
+			usleep(70000);
+	if (!(philos->philo_index % 2 == 0))
+			usleep(10000);
+	while (is_alive(philos))
+	{
+		check_forks(philos);
+		if (philos->times_eaten == data_call()->must_eat || !(is_alive(philos)))
+			break;
+		philo_sleep(philos);
+		usleep(100);
+		if (!check_death())
+			print_message(philos, "is thinking");
+	}
+	return(NULL);
 }

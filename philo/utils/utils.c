@@ -6,7 +6,7 @@
 /*   By: vpacheco <vpacheco@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:36:00 by vpacheco          #+#    #+#             */
-/*   Updated: 2023/04/04 17:16:19 by vpacheco         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:52:05 by vpacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,35 @@ long int	get_time(void)
 
 void	print_message(t_philo *philos, char *str)
 {
-	printf("%ld %i %s\n", get_time() - \
-			philos->data->real_time, philos->philo_index, str);
+	printf("%ldms philo%i %s\n", get_time() - \
+			philos->data->start, philos->philo_index, str);
 	return ;
 }
 
-int	ft_atoi(const char *str)
+void free_all(t_forks *forks, t_philo *philos)
 {
-	long long	ret;
-	int			sign;
+	int i;
+	static t_data *data;
+	
+	i = -1;
+	if (forks)
+	{
+		while (++ i < data->num_philos)
+			pthread_mutex_destroy(&forks[i].forks);
+		free(data->forks);
+	}
+	free(forks);
+	free(philos);
+}
 
-	ret = 0;
-	sign = 1;
-	while (*str == '\t' || *str == '\n' || *str == '\v'
-		|| *str == '\f' || *str == '\r' || *str == ' ')
-		++str;
-	if (*str == '-')
-	{
-		sign *= -1;
-		str++;
-	}
-	if (*str == '+')
-		str++;
-	while ('0' <= *str && *str <= '9')
-	{
-		ret *= 10;
-		ret += (sign * (*(str++) - '0'));
-		if (ret > 2147483647)
-			return (-1);
-		if (ret < -2147483648)
-			return (0);
-	}
-	return (ret);
+t_dead *dead_call(void)
+{
+	static t_dead	death;
+	return(&death);
+}
+
+t_data *data_call(void)
+{
+	static t_data data;
+	return (&data);
 }

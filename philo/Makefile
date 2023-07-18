@@ -1,5 +1,10 @@
 SRCS	=	main.c \
-			
+				utils/check_death.c \
+				utils/handle_forks.c \
+				utils/philo_routine.c \
+				utils/philo_start.c \
+				utils/utils.c \
+				utils/atoi.c \
 			
 OBJS	= $(SRCS:.c=.o)
 
@@ -7,22 +12,14 @@ NAME	= philo
 
 CC		= cc
 
-CFLAGS	= -Wall -Wextra -Werror -I ./ -I ./ft_printf/includes -g #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -pthread -I includes -g -fsanitize=address
 
 RM		= rm -rf
 
-
-FT_PRINTF = ft_printf/libftprintf.a
-
-
-
 all: $(NAME)
 
-$(NAME): $(OBJS) $(FT_PRINTF)
+$(NAME): $(OBJS) 
 		$(CC) $(CFLAGS) $^ -o $@
-
-$(FT_PRINTF):
-		make -C ft_printf
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $^ -o $@
@@ -30,11 +27,9 @@ $(FT_PRINTF):
 
 clean: 
 	$(RM) $(OBJS)
-	make clean -C ft_printf
 
 fclean: clean
 		$(RM) $(NAME) $(OBJS)
-		make fclean -C ft_printf
 
 re: fclean all
 
