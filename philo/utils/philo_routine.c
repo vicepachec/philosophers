@@ -6,21 +6,21 @@
 /*   By: vpacheco <vpacheco@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 17:19:57 by vpacheco          #+#    #+#             */
-/*   Updated: 2023/07/18 23:16:01 by vpacheco         ###   ########.fr       */
+/*   Updated: 2023/07/19 14:57:14 by vpacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-int		philo_sleep(t_philo *philos)
+int	philo_sleep(t_philo *philos)
 {
 	long int	nap_time;
 	long int	napping;
-	
+
 	nap_time = get_time();
 	napping = 0;
 	if (check_death())
-		return(0);
+		return (0);
 	print_message(philos, "is sleeping");
 	usleep(100);
 	while (napping <= data_call()->philo_sleep)
@@ -28,7 +28,7 @@ int		philo_sleep(t_philo *philos)
 	return (1);
 }
 
-int		philo_eat(t_philo *philos)
+int	philo_eat(t_philo *philos)
 {
 	long int	eat_time;
 	long int	eating;
@@ -36,7 +36,7 @@ int		philo_eat(t_philo *philos)
 	eat_time = get_time();
 	eating = 0;
 	if (check_death())
-		return(0);
+		return (0);
 	usleep(100);
 	if (is_alive(philos))
 	{
@@ -49,27 +49,25 @@ int		philo_eat(t_philo *philos)
 		philos->both_forks = 0;
 		philos->times_eaten++;
 	}
-	return(1);
+	return (1);
 }
 
-void *philo_jobs(void *arg)
+void	*philo_jobs(void *arg)
 {
-	t_philo *philos;
-	
+	t_philo	*philos;
+
 	philos = (t_philo *)arg;
 	philos->last_eaten = data_call()->start;
-	if (!(philos->philo_index % 2))
-			usleep(10000);
+	if (philos->philo_index % 2 == 0)
+		usleep(70000);
 	while (is_alive(philos))
 	{
 		check_forks(philos);
-		if (philos->times_eaten == data_call()->must_eat || !(is_alive(philos)))
-			break;
+		if (philos->times_eaten == data_call()->must_eat)
+			break ;
 		philo_sleep(philos);
 		if (!check_death())
 			print_message(philos, "is thinking");
-		if (data_call()->num_philos % 2)
-			usleep(2000);
 	}
-	return(NULL);
+	return (NULL);
 }

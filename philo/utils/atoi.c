@@ -6,7 +6,7 @@
 /*   By: vpacheco <vpacheco@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 17:59:25 by vpacheco          #+#    #+#             */
-/*   Updated: 2023/07/18 18:32:08 by vpacheco         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:51:57 by vpacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		conv = (conv * 10 + (str[i] - '0'));
-			i++;
+		i++;
 		if (conv > 2147483647)
 			return (0);
 	}

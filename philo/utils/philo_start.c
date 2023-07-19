@@ -6,16 +6,16 @@
 /*   By: vpacheco <vpacheco@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:10:24 by vpacheco          #+#    #+#             */
-/*   Updated: 2023/07/19 12:43:44 by vpacheco         ###   ########.fr       */
+/*   Updated: 2023/07/19 14:45:35 by vpacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void parse_philo(int ac, char **av)
-{	
+void	parse_philo(int ac, char **av)
+{
 	data_call()->num_philos = ft_atoi(av[1]);
-	data_call()->philo_die	= ft_atoi(av[2]);
+	data_call()->philo_die = ft_atoi(av[2]);
 	data_call()->philo_eat_time = ft_atoi(av[3]);
 	data_call()->philo_sleep = ft_atoi (av[4]);
 	if (ac == 6)
@@ -24,15 +24,15 @@ void parse_philo(int ac, char **av)
 		if (data_call()->must_eat <= 0)
 		{
 			printf("Error\n");
-			return;
+			return ;
 		}
 	}
-	if (data_call()->num_philos <= 0 || data_call()->philo_die <= 0 || data_call()->philo_eat_time <= 0 || \
-		data_call()->philo_sleep <= 0)
-		{
-			printf("Error\n");
-			return;
-		}
+	if (data_call()->num_philos <= 0 || data_call()->philo_die <= 0 \
+		|| data_call()->philo_eat_time <= 0 || data_call()->philo_sleep <= 0)
+	{
+		printf("Error\n");
+		return ;
+	}
 	philo_start(data_call());
 }
 
@@ -60,6 +60,7 @@ void	philo_start(t_data *data)
 	i = -1;
 	while (++i < data->num_philos)
 		pthread_mutex_destroy(&forks[i].forks);
+	pthread_mutex_destroy(&forks->print);
 	free(forks);
 	return ;
 }

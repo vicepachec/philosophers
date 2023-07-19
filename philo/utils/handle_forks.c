@@ -6,7 +6,7 @@
 /*   By: vpacheco <vpacheco@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:06:03 by vpacheco          #+#    #+#             */
-/*   Updated: 2023/07/18 20:23:09 by vpacheco         ###   ########.fr       */
+/*   Updated: 2023/07/19 14:35:25 by vpacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	check_forks(t_philo *phi)
 	return (0);
 }
 
-void put_forks(t_philo *phi, int index)
+void	put_forks(t_philo *phi, int index)
 {
 	pthread_mutex_lock(&phi->forks[index].forks);
 	phi->forks[index].has_fork = 0;
@@ -69,8 +69,10 @@ t_forks	*forks_init(t_data *data)
 	fork = malloc(sizeof(t_forks) * (data->num_philos));
 	if (!fork)
 		return (NULL);
+	pthread_mutex_init(&fork->print, NULL);
 	while (++i < data->num_philos)
 	{
+		fork[i].print = fork[0].print;
 		fork[i].has_fork = 0;
 		pthread_mutex_init(&fork[i].forks, NULL);
 	}
