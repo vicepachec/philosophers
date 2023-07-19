@@ -22,7 +22,7 @@ long int	get_time(void)
 
 void	print_message(t_philo *philos, char *str)
 {
-	printf("%ldms philo%i %s\n", get_time() - \
+	printf("%ld %i %s\n", get_time() - \
 			philos->data->start, philos->philo_index, str);
 	return ;
 }
