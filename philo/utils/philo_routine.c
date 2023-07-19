@@ -6,7 +6,7 @@
 /*   By: vpacheco <vpacheco@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 17:19:57 by vpacheco          #+#    #+#             */
-/*   Updated: 2023/07/18 22:20:02 by vpacheco         ###   ########.fr       */
+/*   Updated: 2023/07/18 23:16:01 by vpacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ void *philo_jobs(void *arg)
 	
 	philos = (t_philo *)arg;
 	philos->last_eaten = data_call()->start;
-	if (philos->philo_index % 2 == 0)
-			usleep(70000);
-	if (!(philos->philo_index % 2 == 0))
+	if (!(philos->philo_index % 2))
 			usleep(10000);
 	while (is_alive(philos))
 	{
@@ -68,9 +66,10 @@ void *philo_jobs(void *arg)
 		if (philos->times_eaten == data_call()->must_eat || !(is_alive(philos)))
 			break;
 		philo_sleep(philos);
-		usleep(100);
 		if (!check_death())
 			print_message(philos, "is thinking");
+		if (data_call()->num_philos % 2)
+			usleep(2000);
 	}
 	return(NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: vpacheco <vpacheco@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:10:24 by vpacheco          #+#    #+#             */
-/*   Updated: 2023/07/18 20:25:34 by vpacheco         ###   ########.fr       */
+/*   Updated: 2023/07/18 23:13:02 by vpacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	philo_start(void)
 	t_philo	*philo;
 
 	i = -1;
-	data_call()->start = get_time();
 	pthread_mutex_init(&dead_call()->death, NULL);
 	philo = new_philos(data_call());
 	forks = forks_init(data_call());
 	if (!philo || !forks)
 		return (free_all(forks, philo));
+	data_call()->start = get_time();
 	while (++i < data_call()->num_philos)
 		philo[i].forks = forks;
 	i = -1;
